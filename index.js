@@ -42,9 +42,9 @@ function Airplane(name) {
  function Person(name, age) {
     this.name = name;
     this.age = age;
-    this.stomah = [];
+    this.stomach = [];
   }
- Person.prototype.eat =function(){
+ Person.prototype.eat =function(edible){
    if(this.stomach.length <10){
      this.stomach.push(edible);
    }
@@ -83,10 +83,16 @@ console.log(josh.toString());
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+
+ function Car(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank= 0;
+    this.odometer = 0;
   }
-  
+  Car.prototype.fill=function(gallons){
+    this.tank += gallons;
+  }
   
   /*
     TASK 3
@@ -95,18 +101,22 @@ console.log(josh.toString());
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby(name, age, favoriteToy) {   
+   Person.call(this, name, age);
+    this.favoriteToy = favoriteToy;
   }
- 
+  Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play=function(){
+  return `Playing with ${this.favoriteToy}`;
+};
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. if functionis in global scope, the value of this will be the window/browser obj
+    2. when function is called with a dot, the object before the dot is this
+    3. when using constructor functions, this is pointing to each instance of the object that is created by the constructor function
+    4. call and apply methods means it is explicitly defined--that's what "this" points to
   */
   
   
